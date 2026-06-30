@@ -2,7 +2,6 @@
 
 > Una guía de referencia clara y orientada a principiantes para empezar **cualquier** proyecto en Python: entornos virtuales, instalación de paquetes, `requirements.txt`, Jupyter, kernels y buenas prácticas.
 
-No se asume ningún conocimiento previo. Cada paso explica **qué** hacer, **cómo** hacerlo y, sobre todo, **por qué**.
 
 ---
 
@@ -15,23 +14,21 @@ No se asume ningún conocimiento previo. Cada paso explica **qué** hacer, **có
 5. [Desactivar el entorno virtual](#5-desactivar-el-entorno-virtual)
 6. [¿Cómo saber si el entorno está activo?](#6-cómo-saber-si-el-entorno-virtual-está-activo)
 7. [Instalar paquetes](#7-instalar-paquetes)
-8. [Actualizar paquetes](#8-actualizar-paquetes)
-9. [Ver los paquetes instalados](#9-ver-los-paquetes-instalados)
-10. [Archivo `requirements.txt`](#10-archivo-requirementstxt)
-11. [¿Qué es Jupyter Notebook?](#11-qué-es-jupyter-notebook)
-12. [¿Qué es un Kernel?](#12-qué-es-un-kernel)
-13. [Conectar un entorno virtual con Jupyter](#13-cómo-conectar-un-entorno-virtual-con-jupyter)
-14. [Estructura básica recomendada de un proyecto](#14-estructura-básica-recomendada-para-un-proyecto-en-python)
-15. [Primeros pasos al iniciar un proyecto](#15-primeros-pasos-al-iniciar-un-proyecto)
-16. [Errores comunes y soluciones](#16-errores-comunes-y-soluciones)
-17. [Buenas prácticas](#17-buenas-prácticas)
-18. [Resumen visual](#18-resumen-visual)
+8. [Ver los paquetes instalados](#8-ver-los-paquetes-instalados)
+9. [Archivo `requirements.txt`](#9-archivo-requirementstxt)
+10. [¿Qué es Jupyter Notebook?](#10-qué-es-jupyter-notebook)
+11. [¿Qué es un Kernel?](#11-qué-es-un-kernel)
+12. [Conectar un entorno virtual con Jupyter](#12-cómo-conectar-un-entorno-virtual-con-jupyter)
+13. [Estructura básica recomendada de un proyecto](#13-estructura-básica-recomendada-para-un-proyecto-en-python)
+14. [Primeros pasos al iniciar un proyecto](#14-primeros-pasos-al-iniciar-un-proyecto)
+15. [Errores comunes y soluciones](#15-errores-comunes-y-soluciones)
+16. [Buenas prácticas](#16-buenas-prácticas)
 
 ---
 
 ## 1. ¿Qué es un entorno virtual (Virtual Environment)?
 
-### Qué es
+
 
 Un **entorno virtual** es una **carpeta aislada** dentro de tu proyecto que contiene su propia copia (o enlace) de Python y sus propios paquetes instalados.
 
@@ -76,7 +73,7 @@ Un entorno virtual **resuelve** ese conflicto: cada proyecto guarda su propia ve
 
 ## 2. ¿Qué es `venv`?
 
-### Explicación de la librería estándar
+### Librería estándar
 
 `venv` es un **módulo incluido de serie en Python** (desde la versión 3.3). No necesitas instalar nada extra: si tienes Python 3, ya tienes `venv`.
 
@@ -124,7 +121,10 @@ python -m venv <nombre_del_entorno>
 
 > 💡 El nombre más usado es `venv`. Con un punto delante (`.venv`) queda "oculto" y VS Code lo detecta automáticamente.
 
-### 🪟 Windows
+> 💡 **Abre el desplegable de tu sistema operativo** para ver el comando que te corresponde.
+
+<details>
+<summary>🪟 Windows</summary>
 
 ```bat
 python -m venv venv
@@ -136,7 +136,10 @@ Si `python` no funciona, prueba con el lanzador oficial de Windows:
 py -m venv venv
 ```
 
-### 🍎 macOS
+</details>
+
+<details>
+<summary>🍎 macOS</summary>
 
 ```bash
 python3 -m venv venv
@@ -144,7 +147,10 @@ python3 -m venv venv
 
 > ⚠️ En macOS casi siempre se usa `python3`, porque `python` a secas puede no existir o apuntar a una versión antigua.
 
-### 🐧 Linux
+</details>
+
+<details>
+<summary>🐧 Linux</summary>
 
 ```bash
 python3 -m venv venv
@@ -155,6 +161,8 @@ python3 -m venv venv
 > sudo apt install python3-venv
 > ```
 
+</details>
+
 **Resultado:** En los tres casos se crea una carpeta `venv/` en tu proyecto. **Todavía no está activa** → ese es el siguiente paso.
 
 ---
@@ -163,13 +171,18 @@ python3 -m venv venv
 
 **Crear** el entorno no basta: hay que **activarlo** para empezar a usarlo.
 
-### 🪟 Windows — CMD (Símbolo del sistema)
+
+<details>
+<summary>🪟 Windows — CMD (Símbolo del sistema)</summary>
 
 ```bat
 venv\Scripts\activate.bat
 ```
 
-### 🪟 Windows — PowerShell
+</details>
+
+<details>
+<summary>🪟 Windows — PowerShell</summary>
 
 ```powershell
 venv\Scripts\Activate.ps1
@@ -180,11 +193,16 @@ venv\Scripts\Activate.ps1
 > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 > ```
 
-### 🍎🐧 macOS / Linux
+</details>
+
+<details>
+<summary>🍎🐧 macOS / Linux</summary>
 
 ```bash
 source venv/bin/activate
 ```
+
+</details>
 
 ### ¿Qué cambia al activarlo?
 
@@ -284,7 +302,7 @@ pip install <nombre_del_paquete>
 
 > ⚠️ **Regla de oro:** Antes de `pip install`, **comprueba que ves `(venv)`** en tu terminal. Si no, lo instalarás en el lugar equivocado.
 
-### Ejemplos reales
+### Ejemplos
 
 Paquetes muy comunes en análisis de datos y ciencia de datos:
 
@@ -315,78 +333,32 @@ pip install pandas==2.2.0
 
 ---
 
-## 8. Actualizar paquetes
+## 8. Ver los paquetes instalados
 
-### Actualizar un paquete a su última versión
+- `pip list`  Muestra **todos** los paquetes instalados en formato legible (tabla):
 
-```bash
-pip install --upgrade pandas
-```
+  ```bash
+  pip list
+  ```
 
-`--upgrade` (o `-U`) le dice a `pip` que actualice el paquete si hay una versión más nueva.
+  ```
+  Package         Version
+  --------------- -------
+  numpy           1.26.4
+  pandas          2.2.2
+  pip             24.0
+  ```
 
-**Actualizar el propio `pip`** (recomendable de vez en cuando):
+- `pip freeze`Muestra los paquetes en el **formato exacto** que usa `requirements.txt`:
 
-```bash
-python -m pip install --upgrade pip
-```
+  ```bash
+  pip freeze
+  ```
 
-### Cómo verificar la versión instalada
-
-```bash
-pip show pandas
-```
-
-Salida (resumida):
-
-```
-Name: pandas
-Version: 2.2.2
-Location: /home/pepita/mi-proyecto/venv/lib/python3.12/site-packages
-```
-
-> 💡 Fíjate en `Location`: confirma que el paquete está dentro de tu `venv/`.
-
-También desde Python:
-
-```bash
-python -c "import pandas; print(pandas.__version__)"
-```
-
-> ⚠️ **Cuidado al actualizar:** una versión nueva puede cambiar comportamientos. Si un proyecto funciona, no actualices "porque sí". Actualiza con un motivo y prueba después.
-
----
-
-## 9. Ver los paquetes instalados
-
-### `pip list`
-
-Muestra **todos** los paquetes instalados en formato legible (tabla):
-
-```bash
-pip list
-```
-
-```
-Package         Version
---------------- -------
-numpy           1.26.4
-pandas          2.2.2
-pip             24.0
-```
-
-### `pip freeze`
-
-Muestra los paquetes en el **formato exacto** que usa `requirements.txt`:
-
-```bash
-pip freeze
-```
-
-```
-numpy==1.26.4
-pandas==2.2.2
-```
+  ```
+  numpy==1.26.4
+  pandas==2.2.2
+  ```
 
 ### ¿Cuál usar?
 
@@ -397,9 +369,7 @@ pandas==2.2.2
 
 ---
 
-## 10. Archivo `requirements.txt`
-
-### Qué es
+## 9. Archivo `requirements.txt`
 
 Es un **archivo de texto plano** que lista todos los paquetes que tu proyecto necesita, con sus versiones exactas:
 
@@ -409,13 +379,19 @@ numpy==1.26.4
 matplotlib==3.8.4
 ```
 
-### Para qué sirve
+> 💡 **Abre cada apartado** para ver el detalle.
+
+<details>
+<summary>Para qué sirve</summary>
 
 Es la **"receta" reproducible** de tu proyecto. Permite que cualquier persona (o tu yo del futuro, o un servidor) instale **exactamente las mismas versiones** con un solo comando.
 
-### Cómo generarlo
+</details>
 
-Con el entorno **activado**:
+<details>
+<summary>Cómo generarlo</summary>
+
+Se genera con el entorno **activado**:
 
 ```bash
 pip freeze > requirements.txt
@@ -423,7 +399,10 @@ pip freeze > requirements.txt
 
 Esto guarda la lista de `pip freeze` en el archivo `requirements.txt`.
 
-### Cómo instalar dependencias desde él
+</details>
+
+<details>
+<summary>Cómo instalar dependencias desde él</summary>
 
 Cuando alguien clona tu proyecto (o tú lo abres en otro PC):
 
@@ -433,7 +412,10 @@ pip install -r requirements.txt
 
 `-r` significa *"read"* (leer): pip lee el archivo e instala todo lo que aparece.
 
-### Buenas prácticas
+</details>
+
+<details>
+<summary>Buenas prácticas</summary>
 
 - ✅ **Actualízalo** cada vez que instales o quites un paquete importante.
 - ✅ **Súbelo a Git** (a diferencia de la carpeta `venv/`, que **nunca** se sube).
@@ -442,11 +424,11 @@ pip install -r requirements.txt
 
 > 💡 **Flujo típico:** instalo paquetes → `pip freeze > requirements.txt` → `git add requirements.txt`.
 
+</details>
+
 ---
 
-## 11. ¿Qué es Jupyter Notebook?
-
-### Qué es
+## 10. ¿Qué es Jupyter Notebook?
 
 **Jupyter Notebook** es una herramienta que te permite escribir y ejecutar código Python en **celdas**, mezclándolo con texto explicativo, fórmulas, tablas y gráficos, todo en un mismo documento (archivo con extensión `.ipynb`).
 
@@ -470,9 +452,8 @@ pip install -r requirements.txt
 
 ---
 
-## 12. ¿Qué es un Kernel?
+## 11. ¿Qué es un Kernel?
 
-### Definición
 
 Un **kernel** es el **"motor" que ejecuta el código** de tu notebook. Cuando escribes código en una celda y pulsas ejecutar, ese código se envía al kernel, que lo procesa y devuelve el resultado.
 
@@ -500,15 +481,18 @@ Si tu notebook usa el kernel **equivocado** (por ejemplo, el Python del sistema 
 - ❌ Versiones de paquetes distintas a las que esperabas.
 - ❌ El código funciona en la terminal pero **falla** en el notebook.
 
-> ⚠️ **Síntoma típico:** "Instalé pandas pero el notebook dice que no existe". Casi siempre es **kernel equivocado**. Solución en la sección 13.
+> ⚠️ **Síntoma típico:** "Instalé pandas pero el notebook dice que no existe". Casi siempre es **kernel equivocado**. Solución en la sección 12.
 
 ---
 
-## 13. Cómo conectar un entorno virtual con Jupyter
+## 12. Cómo conectar un entorno virtual con Jupyter
 
 Para que Jupyter pueda usar tu entorno virtual, debes **registrarlo como kernel**. Sigue estos pasos con el entorno **activado**.
 
-### Paso 1 — Instalar `ipykernel`
+> 💡 **Abre cada paso** para ver el detalle. Si trabajas en **VS Code**, normalmente solo necesitas el Paso 3 (VS Code detecta tu entorno automáticamente).
+
+<details>
+<summary>Paso 1 — Instalar <code>ipykernel</code></summary>
 
 `ipykernel` es el paquete que permite que un entorno se convierta en un kernel de Jupyter.
 
@@ -516,7 +500,10 @@ Para que Jupyter pueda usar tu entorno virtual, debes **registrarlo como kernel*
 pip install ipykernel
 ```
 
-### Paso 2 — Registrar el kernel
+</details>
+
+<details>
+<summary>Paso 2 — Registrar el kernel</summary>
 
 ```bash
 python -m ipykernel install --user --name=mi-proyecto --display-name "Python (mi-proyecto)"
@@ -530,7 +517,10 @@ Explicación de cada parte:
 
 > 💡 Usa un nombre que identifique el proyecto, así no te confundes cuando tengas varios.
 
-### Paso 3 — Seleccionarlo en VS Code
+</details>
+
+<details>
+<summary>Paso 3 — Seleccionarlo en VS Code</summary>
 
 1. Abre tu archivo `.ipynb`.
 2. Arriba a la **derecha**, haz clic en **"Select Kernel"** (Seleccionar kernel).
@@ -538,14 +528,20 @@ Explicación de cada parte:
 
 > 💡 VS Code suele **detectar automáticamente** los entornos `venv` y `.venv` dentro de tu carpeta. Si no aparece, recarga la ventana (`Ctrl+Shift+P` → *"Reload Window"*).
 
-### Paso 4 — Seleccionarlo en Jupyter Notebook (en el navegador)
+</details>
+
+<details>
+<summary>Paso 4 — Seleccionarlo en Jupyter Notebook (en el navegador)</summary>
 
 1. Lanza Jupyter: `jupyter notebook`
 2. Abre o crea un notebook.
 3. Menú **Kernel → Change Kernel** (Cambiar kernel).
 4. Selecciona **"Python (mi-proyecto)"**.
 
-### Paso 5 — Cómo eliminar un kernel que ya no usas
+</details>
+
+<details>
+<summary>Paso 5 — Cómo eliminar un kernel que ya no usas</summary>
 
 **Ver los kernels registrados:**
 
@@ -567,9 +563,11 @@ jupyter kernelspec uninstall mi-proyecto
 
 > 💡 Eliminar un kernel **no borra** tu entorno virtual ni tus paquetes; solo quita la entrada de la lista de Jupyter.
 
+</details>
+
 ---
 
-## 14. Estructura básica recomendada para un proyecto en Python
+## 13. Estructura básica recomendada para un proyecto en Python
 
 Una estructura ordenada hace que tu proyecto sea fácil de entender y mantener:
 
@@ -635,11 +633,14 @@ data/raw/
 
 ---
 
-## 15. Primeros pasos al iniciar un proyecto
+## 14. Primeros pasos al iniciar un proyecto
 
 Flujo **completo desde cero**, explicando el porqué de cada paso. Sustituye `mi-proyecto` por el nombre real.
 
-### 1️⃣ Crear la carpeta del proyecto
+> 💡 **Abre cada paso** para ver el comando y su explicación. Síguelos en orden, de arriba abajo.
+
+<details>
+<summary>1️⃣ Crear la carpeta del proyecto</summary>
 
 ```bash
 mkdir mi-proyecto
@@ -648,7 +649,10 @@ cd mi-proyecto
 
 **Por qué:** todo proyecto vive en su propia carpeta. `cd` te mueve dentro de ella.
 
-### 2️⃣ Abrir VS Code en esa carpeta
+</details>
+
+<details>
+<summary>2️⃣ Abrir VS Code en esa carpeta</summary>
 
 ```bash
 code .
@@ -656,7 +660,10 @@ code .
 
 **Por qué:** el `.` significa "la carpeta actual". Así VS Code abre el proyecto en su raíz y detecta bien el entorno.
 
-### 3️⃣ Crear el entorno virtual
+</details>
+
+<details>
+<summary>3️⃣ Crear el entorno virtual</summary>
 
 ```bash
 # Windows
@@ -668,7 +675,10 @@ python3 -m venv venv
 
 **Por qué:** aísla las dependencias de este proyecto desde el principio.
 
-### 4️⃣ Activarlo
+</details>
+
+<details>
+<summary>4️⃣ Activarlo</summary>
 
 ```bash
 # Windows (CMD)
@@ -683,7 +693,10 @@ source venv/bin/activate
 
 **Por qué:** sin activarlo, `pip` instalaría en el sistema. Verifica que ves `(venv)`.
 
-### 5️⃣ Instalar dependencias
+</details>
+
+<details>
+<summary>5️⃣ Instalar dependencias</summary>
 
 ```bash
 pip install pandas jupyter ipykernel
@@ -691,7 +704,10 @@ pip install pandas jupyter ipykernel
 
 **Por qué:** instalas lo que necesitas para empezar a trabajar (datos + notebooks + kernel).
 
-### 6️⃣ Crear `requirements.txt`
+</details>
+
+<details>
+<summary>6️⃣ Crear <code>requirements.txt</code></summary>
 
 ```bash
 pip freeze > requirements.txt
@@ -699,7 +715,10 @@ pip freeze > requirements.txt
 
 **Por qué:** dejas registrada la "receta" para que el entorno sea reproducible.
 
-### 7️⃣ Registrar y seleccionar el kernel
+</details>
+
+<details>
+<summary>7️⃣ Registrar y seleccionar el kernel</summary>
 
 ```bash
 python -m ipykernel install --user --name=mi-proyecto --display-name "Python (mi-proyecto)"
@@ -709,11 +728,17 @@ Luego, en VS Code: **"Select Kernel" → "Python (mi-proyecto)"**.
 
 **Por qué:** así el notebook usará tu entorno virtual y encontrará los paquetes.
 
-### 8️⃣ Crear el primer notebook
+</details>
+
+<details>
+<summary>8️⃣ Crear el primer notebook</summary>
 
 En `notebooks/`, crea un archivo `prueba.ipynb` (en VS Code: clic derecho → *New File* → `prueba.ipynb`).
 
-### 9️⃣ Ejecutar una prueba con pandas
+</details>
+
+<details>
+<summary>9️⃣ Ejecutar una prueba con pandas</summary>
 
 En la primera celda, escribe y ejecuta:
 
@@ -731,22 +756,28 @@ datos
 
 **Resultado esperado:** una tabla con los datos y el mensaje de éxito. Si lo ves, ¡tu entorno está perfectamente configurado! ✅
 
+</details>
+
 ---
 
-## 16. Errores comunes y soluciones
+## 15. Errores comunes y soluciones
 
-### ⚠️ `ModuleNotFoundError: No module named 'pandas'`
+> 💡 **Haz clic en cada error** para desplegar su causa y solución. Así la lista se ve compacta y encuentras tu problema de un vistazo.
+
+<details>
+<summary>⚠️ <code>ModuleNotFoundError: No module named 'pandas'</code></summary>
 
 **Causa:** El paquete no está instalado **en el entorno activo**, o el notebook usa el **kernel equivocado**.
 
 **Solución:**
 1. Verifica que ves `(venv)` en la terminal.
 2. Reinstala: `pip install pandas`.
-3. En el notebook, comprueba el kernel (sección 13) — debe apuntar a tu `venv`.
+3. En el notebook, comprueba el kernel (sección 12) — debe apuntar a tu `venv`.
 
----
+</details>
 
-### ⚠️ `pip` no se reconoce como comando
+<details>
+<summary>⚠️ <code>pip</code> no se reconoce como comando</summary>
 
 **Causa:** El entorno no está activado o `pip` no está en el PATH.
 
@@ -757,9 +788,10 @@ datos
   python -m pip install nombre_paquete
   ```
 
----
+</details>
 
-### ⚠️ `python` no se encuentra / "Python no encontrado"
+<details>
+<summary>⚠️ <code>python</code> no se encuentra / "Python no encontrado"</summary>
 
 **Causa:** Python no está instalado o no está en el PATH.
 
@@ -767,9 +799,10 @@ datos
 - En **Windows**: prueba con `py` en lugar de `python`. Si tampoco, reinstala Python desde https://python.org y **marca la casilla "Add Python to PATH"** durante la instalación.
 - En **macOS/Linux**: usa `python3` en lugar de `python`.
 
----
+</details>
 
-### ⚠️ El notebook no encuentra paquetes (kernel incorrecto)
+<details>
+<summary>⚠️ El notebook no encuentra paquetes (kernel incorrecto)</summary>
 
 **Causa:** El notebook está usando otro Python distinto al de tu `venv`.
 
@@ -780,11 +813,12 @@ datos
    print(sys.executable)
    ```
    Debe mostrar una ruta dentro de `venv/`.
-2. Si no, cambia el kernel al de tu proyecto (sección 13).
+2. Si no, cambia el kernel al de tu proyecto (sección 12).
 
----
+</details>
 
-### ⚠️ Instalé un paquete pero no aparece en `pip list`
+<details>
+<summary>⚠️ Instalé un paquete pero no aparece en <code>pip list</code></summary>
 
 **Causa:** Lo instalaste en un entorno (o sistema) distinto al que estás mirando.
 
@@ -792,9 +826,10 @@ datos
 - Asegúrate de tener el **mismo entorno activado** al instalar y al listar.
 - Verifica con `which python` (macOS/Linux) o `where python` (Windows).
 
----
+</details>
 
-### ⚠️ El entorno virtual no se activa (PowerShell)
+<details>
+<summary>⚠️ El entorno virtual no se activa (PowerShell)</summary>
 
 **Causa:** PowerShell bloquea la ejecución de scripts por seguridad.
 
@@ -804,9 +839,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 Luego vuelve a activar con `venv\Scripts\Activate.ps1`.
 
----
+</details>
 
-### ⚠️ Problemas típicos en Windows
+<details>
+<summary>⚠️ Problemas típicos en Windows</summary>
 
 | Problema | Solución |
 |---|---|
@@ -815,9 +851,11 @@ Luego vuelve a activar con `venv\Scripts\Activate.ps1`.
 | Caracteres raros / tildes en rutas | Evita espacios y acentos en los nombres de carpetas del proyecto. |
 | Antivirus bloquea la creación del entorno | Crea el proyecto fuera de carpetas protegidas (ej. evita `OneDrive`). |
 
+</details>
+
 ---
 
-## 17. Buenas prácticas
+## 16. Buenas prácticas
 
 - 🚫 **No subas el entorno virtual a Git.** Añade `venv/` al `.gitignore`. Es pesado y específico de tu máquina.
 - 📋 **Usa `requirements.txt`.** Es la forma estándar de compartir dependencias. Actualízalo cuando cambies paquetes.
@@ -827,59 +865,6 @@ Luego vuelve a activar con `venv\Scripts\Activate.ps1`.
 - ✅ **Activa el entorno antes de instalar.** Comprueba siempre el `(venv)`.
 - 📝 **Escribe un buen README.** Explica qué hace el proyecto y cómo ejecutarlo.
 - 🔐 **No subas secretos.** Contraseñas, tokens y claves van en un archivo `.env` (ignorado por Git), nunca en el código.
-
----
-
-## 18. Resumen visual
-
-### Diagrama del flujo (ASCII)
-
-```
-        ┌─────────────────────┐
-        │   Crear proyecto    │   mkdir mi-proyecto && cd mi-proyecto
-        └──────────┬──────────┘
-                   ↓
-        ┌─────────────────────┐
-        │     Crear venv      │   python -m venv venv
-        └──────────┬──────────┘
-                   ↓
-        ┌─────────────────────┐
-        │    Activar venv     │   source venv/bin/activate
-        └──────────┬──────────┘
-                   ↓
-        ┌─────────────────────┐
-        │  Instalar paquetes  │   pip install pandas jupyter ipykernel
-        └──────────┬──────────┘
-                   ↓
-        ┌─────────────────────┐
-        │ Crear requirements  │   pip freeze > requirements.txt
-        └──────────┬──────────┘
-                   ↓
-        ┌─────────────────────┐
-        │ Instalar ipykernel  │   python -m ipykernel install --user ...
-        └──────────┬──────────┘
-                   ↓
-        ┌─────────────────────┐
-        │  Seleccionar Kernel │   "Select Kernel" en VS Code
-        └──────────┬──────────┘
-                   ↓
-        ┌─────────────────────┐
-        │ Comenzar a programar│   🎉
-        └─────────────────────┘
-```
-
-### Diagrama del flujo (Mermaid)
-
-```mermaid
-flowchart TD
-    A[📁 Crear proyecto] --> B[🐍 Crear venv]
-    B --> C[⚡ Activar venv]
-    C --> D[📦 Instalar paquetes]
-    D --> E[📋 Crear requirements.txt]
-    E --> F[🔌 Instalar ipykernel]
-    F --> G[🎯 Seleccionar Kernel]
-    G --> H[✅ Comenzar a programar]
-```
 
 ---
 
@@ -903,4 +888,4 @@ flowchart TD
 
 ---
 
-> 💡 **Consejo final:** No memorices todo de golpe. Crea **un** proyecto siguiendo la sección 15 paso a paso y, en una semana, estos comandos serán automáticos. ¡La práctica es lo único que importa! 🚀
+ **Happy coding** 🚀
